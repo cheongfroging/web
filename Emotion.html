@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emotion 페이지</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        /* Emotion 페이지 스타일 */
+        body {
+            background-color: #f2f2f2;
+        }
+        .emotion-category {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
+        }
+        .emotion-category h2 {
+            text-align: center;
+        }
+        .emotion-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .emotion-list .emotion-item {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .emotion-list .emotion-item:hover {
+            background-color: #999;
+        }
+        .emotion-list .emotion-item span {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* 음악 정보 및 재생 버튼 스타일 */
+        .music-info {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .music-info h2 {
+            text-align: center;
+        }
+        .music-info .play-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .music-info .play-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        /* 로고 스타일 */
+        header {
+            text-align: left;
+            padding: 20px;
+        }
+        .logo-button {
+            font-family: 'Pacifico', cursive; /* Pacifico 폰트 적용 */
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .logo-button:hover {
+            color: #666;
+        }
+        body {
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="finalexam.html" class="logo-button">Emotion Sound</a>
+    </header>
+
+    <div class="emotion-category">
+        <h2>감정별 카테고리</h2>
+        <div class="emotion-list">
+            <div class="emotion-item" data-emotion="행복">
+                <span>행복</span>
+            </div>
+            <div class="emotion-item" data-emotion="신남">
+                <span>신남</span>
+            </div>
+            <div class="emotion-item" data-emotion="분노">
+                <span>분노</span>
+            </div>
+            <div class="emotion-item" data-emotion="사랑">
+                <span>사랑</span>
+            </div>
+            <div class="emotion-item" data-emotion="슬픔">
+                <span>슬픔</span>
+            </div>
+            <div class="emotion-item" data-emotion="언짢음">
+                <span>언짢음</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="music-info">
+        <h2 id="musicTitle">음악 정보</h2>
+        <div class="play-button">
+            <a href="#" id="playButton">음악 듣기</a>
+        </div>
+    </div>
+    
+    <script>
+        // 음악 정보
+        var musicData = {
+            행복: {
+                title: "행복한 음악",
+                youtubeIds: ["SxFVQzvvvqM", "Raj-AuQgCTg", "lpzJNwur6Zk"]
+            },
+            신남: {
+                title: "신나는 음악",
+                youtubeIds: ["mBXBOLG06Wc", "KgfO-CvSs1g", "Jbch_x5132o"]
+            },
+            분노: {
+                title: "분노한 음악",
+                youtubeIds:["yMlKJGKyoCo", "j7_lSP8Vc3o", "ZAo0DfLlUCo", "z19ceDKYAlo", "QImBolnTVH8"]
+            },
+            사랑: {
+                title: "사랑스러운 음악",
+                youtubeIds: ["RyJlZy3SU6k", "BIH_wec87SU", "dN44xpHjNxE", "XyzaMpAVm3s", "_sQhN4dLC60"]
+            },
+            슬픔: {
+                title: "슬픈 음악",
+                youtubeIds: ["5iSlfF8TQ9k", "wDkjWSt3HOM", "F6ql927-RkI","l6zMnMMzsss"]
+            },
+            언짢음: {
+                title: "언짢은 음악",
+                youtubeIds: ["VK9nA2IppGE", "TM-NfwUJEkw", "BO_qliP3z4E"]
+            }
+        };
+
+        // 음악 정보 업데이트
+        function updateMusicInfo(emotion) {
+            var musicTitle = document.getElementById("musicTitle");
+            var playButton = document.getElementById("playButton");
+
+            if (musicData.hasOwnProperty(emotion)) {
+                musicTitle.textContent = musicData[emotion].title;
+                playButton.href = "https://www.youtube.com/watch?v=" + getRandomYoutubeId(emotion);
+            } else {
+                musicTitle.textContent = "음악 정보";
+                playButton.href = "#";
+            }
+        }
+
+        // 랜덤 음악 선택
+        function getRandomYoutubeId(emotion) {
+            if (musicData.hasOwnProperty(emotion)) {
+                var youtubeIds = musicData[emotion].youtubeIds;
+                var randomYoutubeId = youtubeIds[Math.floor(Math.random() * youtubeIds.length)];
+                return randomYoutubeId;
+            }
+            return null;
+        }
+
+        // 감정별 카테고리 클릭 이벤트 처리
+        var emotionItems = document.getElementsByClassName("emotion-item");
+        for (var i = 0; i < emotionItems.length; i++) {
+            emotionItems[i].addEventListener("click", function () {
+                var emotion = this.getAttribute("data-emotion");
+                updateMusicInfo(emotion);
+            });
+        }
+    </script>
+</body>
+</html>

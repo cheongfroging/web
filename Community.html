@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Community 페이지</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        /* Community 페이지 스타일 */
+        body {
+            background-color: #f2f2f2;
+        }
+        .community-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
+        }
+        .community-content h2 {
+            text-align: center;
+        }
+        .logo {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            width: 100px;
+            height: 100px;
+        }
+        .post-list {
+            margin-top: 20px;
+        }
+        .post-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .post-list th,
+        .post-list td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .post-list th {
+            background-color: #f2f2f2;
+        }
+        .post-list tr:hover {
+            background-color: #f9f9f9;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #ccc;
+            color: #fff;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+        .pagination a.active {
+            background-color: #333;
+        }
+
+        header {
+            text-align: left;
+            padding: 20px;
+        }
+        .logo-button {
+            font-family: 'Pacifico', cursive; /* Pacifico 폰트 적용 */
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .logo-button:hover {
+            color: #666;
+        }
+        body {
+             background-color: lavender;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <a href="finalexam.html" class="logo-button">Emotion Sound</a>
+    </header>
+        <h2>문의 사항 게시판</h2>
+        <div class="post-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>카테고리</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회수</th>
+                        <th>추천수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 게시글들을 서버에서 동적으로 생성해주는 코드가 여기에 들어갑니다 -->
+                    <tr>
+                        <td>1</td>
+                        <td>문의</td>
+                        <td>John Doe</td>
+                        <td>2023-06-07</td>
+                        <td>100</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>문의</td>
+                        <td>Jane Smith</td>
+                        <td>2023-06-08</td>
+                        <td>80</td>
+                        <td>30</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>감정별 노래 추천 게시판</h2>
+        <div class="post-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>카테고리</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회수</th>
+                        <th>추천수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 게시글들을 서버에서 동적으로 생성해주는 코드가 여기에 들어갑니다 -->
+                    <tr>
+                        <td>1</td>
+                        <td>노래추천</td>
+                        <td>David Lee</td>
+                        <td>2023-06-09</td>
+                        <td>120</td>
+                        <td>60</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>노래추천</td>
+                        <td>Amy Johnson</td>
+                        <td>2023-06-10</td>
+                        <td>90</td>
+                        <td>40</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+        </div>
+    </div>
+</body>
+</html> 

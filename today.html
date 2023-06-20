@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Today</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        /* 로고 스타일 */
+        header {
+            text-align: left;
+            padding: 20px;
+        }
+        .logo-button {
+            font-family: 'Pacifico', cursive; 
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .logo-button:hover {
+            color: #666;
+        }
+        
+        /* 배경 그라데이션 */
+        body {
+            background: linear-gradient(to bottom, plum, lavender);
+        }
+
+        /* 오늘의 노래 스타일 */
+        #today-song {
+            float: left;
+            width: 40%;
+            padding-right: 20px;
+        }
+
+        /* 노래 추천 목록 스타일 */
+        #recommendation {
+            float: right;
+            width: 50%;
+            padding-left: 20px;
+        }
+
+        /* 폼 스타일 */
+        form {
+            margin-top: 1px;
+        }
+
+        /* 버튼 스타일 */
+        button {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #666;
+        }
+
+        /* 목록 스타일 */
+        ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="finalexam.html" class="logo-button">Emotion Sound</a>
+    </header>
+
+    <h1>오늘의 노래 추천</h1>
+
+    <section id="today-song">
+        <h2>오늘의 노래(today-song)</h2>
+        <p>호시 - stay</p>
+        <button onclick="window.location.href='https://www.youtube.com/watch?v=RyJlZy3SU6k'">노래 들으러 가기</button>
+    </section>
+
+    <section id="recommendation">
+        <h2>노래 추천 목록</h2>
+        <p>소녀시대 - All Night  :  연인과 드라이브 하면서 듣기 좋은 노래</p>
+        <button onclick="window.location.href='https://www.youtube.com/watch?v=f4w8IbQTJpY'">노래 들으러 가기</button>
+        <p>효린,창모 - BLUE MOON(Prod.GroovyRoom)  :  힙하게 산책하고 싶을 때 듣기 좋은 노래</p>
+        <button onclick="window.location.href='https://www.youtube.com/watch?v=GeJAee3m3Ik'">노래 들으러 가기</button>
+        <p>죠지 - Boat : 여행 갈 때 좋은 노래</p>
+        <button onclick="window.location.href='https://www.youtube.com/watch?v=lAx7C_uUhFo'">노래 들으러 가기</button>
+        <p>태연 - Starlight(Feat. DEAN)  : 우울한 날 들으면 행복해지는 노래이자 행복한 날 들으면 더 행복해지는 노래 </p>
+        <button onclick="window.location.href='https://www.youtube.com/watch?v=eNmL4JiGxZQ'">노래 들으러 가기</button>
+        <p>부석순(seventeen) - 파이팅해야지(Feat. 이영지) : 무기력하게 출근할 때 힘이 나는 노래</p>
+        <button onclick="window.location.href='https://www.youtube.com/watch?v=mBXBOLG06Wc'">노래 들으러 가기</button>
+        <p>Troye Sivan - YOUTH : 청춘과 사랑을 느끼고 싶을 때</p>
+        <button onclick="window.location.href='https://www.youtube.com/watch?v=XYAghEq5Lfw'">노래 들으러 가기</button>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function updateRecommendations() {
+            $.ajax({
+                url: '/recommendations',
+                method: 'GET',
+                success: function(data) {
+                    var recommendationsSection = $('#recommendation');
+                    var recommendationList = recommendationsSection.find('#recommendation-list');
+                    recommendationList.empty();
+
+                    if (data.length === 0) {
+                        recommendationList.append('<p>아직 노래 추천이 없습니다.</p>');
+                    } else {
+                        data.forEach(function(recommendation) {
+                            var listItem = $('<li></li>');
+                            var youtubeLink = $('<a></a>');
+                            youtubeLink.attr('href', recommendation.youtubeLink);
+                            youtubeLink.text(recommendation.title + ' - ' + recommendation.artist);
+                            listItem.append(youtubeLink);
+                            recommendationList.append(listItem);
+                        });
+                    }
+                },
+                error: function() {
+                    console.log('데이터를 불러오는 중에 오류가 발생했습니다.');
+                }
+            });
+        }
+
+        function submitRecommendation(event) {
+            event.preventDefault();
+
+            var title = $('#song-title').val();
+            var artist = $('#artist').val();
+            var reason = $('#reason').val();
+
+            // 임의로 YouTube 링크를 생성합니다.
+            var youtubeLink = 'https://www.youtube.com/watch?v=RyJlZy3SU6k';
+
+            $.ajax({
+                url: '/recommendations',
+                method: 'POST',
+                data: {
+                    title: title,
+                    artist: artist,
+                    reason: reason,
+                    youtubeLink: youtubeLink
+                },
+                success: function() {
+                    updateRecommendations();
+                    $('#song-title').val('');
+                    $('#artist').val('');
+                    $('#reason').val('');
+                },
+                error: function() {
+                    console.log('추천을 전송하는 중에 오류가 발생했습니다.');
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            updateRecommendations();
+            $('#recommendation-form').on('submit', submitRecommendation);
+        });
+    </script>
+</body>
+</html>
